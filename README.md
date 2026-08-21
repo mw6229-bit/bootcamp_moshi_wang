@@ -56,3 +56,12 @@ The answer should be predictive, and should use next day's S&P500 return as the 
 - notebooks/ → Store Jupyter notebooks for data analysis and visualization
 - docs/ → Store project documentation and stakeholder materials
 - The repository will be updated after each stage of the project
+
+## Data Storage
+The project use `data/raw/` to store raw data and `data/processed/` to store processed data. Raw data is saved as CSV because it is easy to read and work with it. Processed data is saved as Parquet because it kept data types and would be more efficient for storing data.
+
+The data paths are set in the `.env` file using:
+- `DATA_DIR_RAW=data/raw`
+- `DATA_DIR_PROCESSED=data/processed`
+
+The code uses these environment variables to find where the data should be saved or loaded. The `write_df()` and `read_df()` functions check the file type and use the correct method for CSV or Parquet files.
