@@ -65,3 +65,19 @@ The data paths are set in the `.env` file using:
 - `DATA_DIR_PROCESSED=data/processed`
 
 The code uses these environment variables to find where the data should be saved or loaded. The `write_df()` and `read_df()` functions check the file type and use the correct method for CSV or Parquet files.
+
+## Data Cleaning Strategy
+For Stage 06, the raw dataset is cleaned before further analysis. The cleaning process include dealing the missing values, removing rows with missing data when necessary, and normalizing numerical values.
+
+Missing numerical values will be filled with the median because the median is less affected by extreme values. Rows with missing values can also be dropped depending on the amount of missing data. Numerical columns are normalized using min-max scaling so the values are between 0 and 1.
+
+Cleaning functions are stored in `src/cleaning.py` so they can be reused. The cleaned dataset is saved in `data/processed/` while the original raw data remains unchanged.
+
+## Assumptions and Reflection
+The provided dataset did not contain any missing values, so the missing value function did not change the original data. I still tested the functions separately with a missing value to make sure they worked correctly.
+
+I used median filling for numerical missing values because the median is less affected by extreme values. Rows with too much missing data can be dropped, although dropping rows may reduce the amount of available data.
+
+I used Min-Max normalization for the `value` column. This changed the original values from a range of 10 to 30 into a range of 0 to 1. The relative differences between the values are preserved, but the original scale is no longer directly visible.
+
+The `date` column was converted to datetime so it can be treated as a date instead of text. The original raw dataset was kept unchanged and the cleaned version was saved separately in `data/processed/`.
